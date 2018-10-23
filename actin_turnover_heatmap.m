@@ -26,7 +26,7 @@ max_colorscale = 5;
 flow = load (fullfile ([d '/data'], ['piv_field_interpolated_', output_name, '.mat']));
 flow = flow.vfilt;
 
-nt = length(imfinfo(fullfile (d, sprintf('cb%d_m.tif', cell_ID))));
+nt = length(flow);
 
 %% MASS TRANSFER (actin turnover) %%
 
@@ -100,6 +100,9 @@ for jj =  1:nt-1
     h = imshow(disassembly,[]);
     colormap('jet');
     caxis([min_colorscale, max_colorscale])
+    c = colorbar;
+    c.Label.FontSize = 14;
+    c.Label.String = 'Disassembly (A.U.)';
     hold on
     
     % black background

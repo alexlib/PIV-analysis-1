@@ -136,6 +136,9 @@ for k = 1:nFrames
     h = imshow(vals,[]);
     colormap('jet');
     caxis([min_colorscale, max_colorscale])
+    c = colorbar;
+    c.Label.FontSize = 14;
+    c.Label.String = 'Compression (A.U.)';
     hold on
     
     % black background
