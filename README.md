@@ -56,3 +56,14 @@ Calculate streamlines for the flow tracked by PIV with the script called **[stre
   + name for the output stamp to be appended to all saved output files (e.g. [output_name]: cell1); need to be the same assigned when running **[happy_piv.m]**!
   + the movie ID (# in **[cb#\_m.tif]**)
 - output: this script returns the refined stacks **[streamlines_(ouput_name).tif]** and **[end_points_(ouput_name).tif]** (in folder [images]) and the file **[flow_streamlines_endpts_(output_name).mat]** (in folder [data]). The figures are not shown during the script run. The first stack shows in green the flow streamlines for each frame; the second stack shows with magenta dots the locations of streamline end points (saved in the .mat file), the dots size is proportional to the number of streamlines ending in a given location.
+
+### Nucleus tracking
+
+Obtain coordinates of the nucleus centroid at each frame with the script **[tracking.m]**. This script can be used to track any entity, provided that a masked stack of the object is passed as input.
+
+- input requested to the user:
+  + folder containing **[n#\_m.tif]** (e.g. _[cell1]_). The object to be tracked has to be masked in white (255) on a black background (0). This can be done in Fiji by opening the stack, setting a threshold and creating a mask from the threshold.
+  + name for the output stamp to be appended to all saved output files (e.g. [output_name]: cell1); need to be the same assigned when running **[happy_piv.m]**!
+  + the movie ID (# in **[cb#\_m.tif]**)
+  + the pixel length in [um] as per the image calibration
+- output: this script returns the file **[cell_tracking_(output_name).mat]** (in folder [data]) containing the object centroid coordinates in [um] for each frame 
