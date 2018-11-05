@@ -1,8 +1,8 @@
-%% flow_speed_quantification.m %%
+%% div_quantification.m %%
 
 % Take as input the directory containing the cell movie and PIV results
 
-% Return the average flow speed for each frame and the average flow speed
+% Return the average convergence for each frame and the average convergence
 % across all frames and save them in the folder [data]
 
 % If the .tif stack with the cell body removed is available in the folder,
@@ -24,6 +24,8 @@ output_name = (user_answer{1,1});
 cell_ID = str2double(user_answer{2,1});
 
 % parameters
+dx = 5;
+dy = 5;
 dilationSize = 4;
 erosionSize = 12;
 connectivityFill = 4;
@@ -35,7 +37,7 @@ flow = flow.vfilt;
 nt = length(flow);
 
 % initialis output vector
-flow_speed = zeros(nt-1, 1);
+diverg = zeros(nt-1, 1);
 
 %% FLOW SPEED %%
 
@@ -48,46 +50,49 @@ for jj = 1:nt-1
     nextFrame = double(imread(fullfile(d, sprintf ...
         ('cb%d_m.tif', cell_ID)),jj+1)) / 255;
     
+    % calculate divergence
+    u = flow(jj).vx;
+    v = flow(jj).vy;
+
+    div = divergence(u,v);
+    
     % find intersection
     cellOutline1 = detectObjectBw(currentFrame, dilationSize, erosionSize, connectivityFill);
     cellOutline2 = detectObjectBw(nextFrame, dilationSize, erosionSize, connectivityFill);
     cellOutline = cellOutline1 .* cellOutline2;
+    cellOutline(cellOutline==0)=NaN;
     
-    % calculate field magnitude (velocity: [um/min])
-    magnitude = hypot(flow(jj).vx, flow(jj).vy);
+    div_mask = div .* cellOutline;
     
-    % apply mask
-    magnitude = magnitude .* cellOutline;
-    magnitude(cellOutline == 0) = NaN;  
-    
+    % remove cell body if present
     file_name = [d, '/', sprintf('no_cb%d_m.tif', cell_ID)];
     if exist(file_name, 'file') == 2
         
         no_cb_frame = double(imread(fullfile(file_name),jj)) / 255;
         lim = logical(no_cb_frame);
         
-        magnitude = magnitude .* lim;   % remove cell body if no_cb exists
-        magnitude(lim == 0) = NaN;  
+        div_mask = div_mask .* lim;   % remove cell body if no_cb exists
+        div_mask(lim == 0) = NaN;
     end
-
+    
     % save mean flow velocity [um/min]
-    flow_speed(jj,1) = nanmean(magnitude, 'all');
+    diverg(jj,1) = nanmean(div_mask, 'all');
     
 end
 
 % average across all frames [um/min]
-flow_speed_average = mean(flow_speed);
+diverg_average = mean(diverg);
 
 %% SAVE %%
 
 % save [flow_speed]: mean flow velocity for each frame [um/min]
 save(fullfile([d '/data'], ...
-        ['flow_speed_', output_name, '.mat']), ...
-        'flow_speed');
+        ['divergence_', output_name, '.mat']), ...
+        'diverg');
 
 % save [flow_speed_average]: mean flow velocity averaged for all frames [um/min]
 save(fullfile([d '/data'], ...
-        ['flow_speed_average_', output_name, '.mat']), ...
-        'flow_speed_average');
+        ['divergence_average_', output_name, '.mat']), ...
+        'diverg_average');
 
 clear; close all

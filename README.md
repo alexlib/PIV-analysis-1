@@ -24,6 +24,7 @@ Calculate divergence heatmap with the script called **[divergence_heatmap.m]**.
   + folder containing **[cb#\_m.tif]** and PIV output (e.g. _[cell1]_)
   + name for the output stamp to be appended to all saved output files (e.g. [output_name]: cell1); need to be the same assigned when running **[happy_piv.m]**!
   + the movie ID (# in **[cb#\_m.tif]**)
+  + the maximum convergence to be displayed in the heatmap [A.U.]
 - output: this script returns the refined stack **[divergence_heatmap_(ouput_name).tif]** (in folder [images]) showing the negative divergence (convergence in arbitrary units) for each frame
 
 ### Principal Strain Rate analysis
@@ -34,6 +35,7 @@ Calculate principal strain rate heatmap with the script called **[principal_stra
   + folder containing **[cb#\_m.tif]** and PIV output (e.g. _[cell1]_)
   + name for the output stamp to be appended to all saved output files (e.g. [output_name]: cell1); need to be the same assigned when running **[happy_piv.m]**!
   + the movie ID (# in **[cb#\_m.tif]**)
+  + the maximum compression to be displayed in the heatmap [A.U.]
 - output: this script returns the refined stack **[principal_strain_rate_heatmap_(ouput_name).tif]** (in folder [images]) showing the negative principal strain rate (compression in arbitrary units) for each frame
 
 ### Actin Turnover analysis
@@ -45,6 +47,7 @@ See [here](https://www.ncbi.nlm.nih.gov/pubmed/20485438) and [here](https://www.
   + folder containing **[cb#\_m.tif]** and PIV output (e.g. _[cell1]_)
   + name for the output stamp to be appended to all saved output files (e.g. [output_name]: cell1); need to be the same assigned when running **[happy_piv.m]**!
   + the movie ID (# in **[cb#\_m.tif]**)
+  + the maximum disassembly to be displayed in the heatmap [A.U.]
 - output: this script returns the refined stack **[actin_turnover_heatmap_(ouput_name).tif]** (in folder [images]) showing the negative actin turnover (disassembly in arbitrary units) for each frame
 
 ### Flow streamline analysis
@@ -66,4 +69,4 @@ Obtain coordinates of the nucleus centroid at each frame with the script **[trac
   + name for the output stamp to be appended to all saved output files (e.g. [output_name]: cell1); need to be the same assigned when running **[happy_piv.m]**!
   + the movie ID (# in **[cb#\_m.tif]**)
   + the pixel length in [um] as per the image calibration
-- output: this script returns the file **[cell_tracking_(output_name).mat]** (in folder [data]) containing the object centroid coordinates in [um] for each frame 
+- output: this script returns the file **[cell_tracking_(output_name).mat]** (in folder [data]) containing the object centroid coordinates in [um] for each frame
