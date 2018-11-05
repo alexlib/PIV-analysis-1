@@ -5,12 +5,13 @@ uiwait(msgbox('Load cell movie folder'));
 d = uigetdir('');
 
 % ask the user for an ouput stamp
-prompt = {'Provide a name for the output files', 'Movie ID (n) if file format is cb_(n)_m.tif'};
+prompt = {'Provide a name for the output files', 'Movie ID (n) if file format is cb_(n)_m.tif', 'Max compression to be displayed in colourmap [A.U.]'};
 title = 'Parameters';
-dims = [1 35];
-user_answer = inputdlg(prompt,title,dims);
+dims = [1 35]; % set input box size
+user_answer = inputdlg(prompt,title,dims); % get user answer
 output_name = (user_answer{1,1});
-mt = str2double(user_answer{2,1});
+cell_ID = str2double(user_answer{2,1});
+max_colorscale = str2double(user_answer{3,1});
 
 % load files
 movieFilePath = [d sprintf('/cb%d_m.tif', mt)];
@@ -30,7 +31,6 @@ dilationSize = 4;
 erosionSize = 10;
 connectivityFill = 4;
 min_colorscale = 0;
-max_colorscale = 0.3;
 
 %% COMPUTE STRAIN RATE TENSOR
 
@@ -156,3 +156,4 @@ for k = 1:nFrames
         'writemode', 'append');
     
 end
+close all; clear
