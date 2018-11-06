@@ -6,7 +6,7 @@ This analysis should be run on the output of PIV codes, which can be found [here
 
 ### Flow field quantification
 
-Compute the average flow velocity from the interpolated PIV field with the script called **[flow_speed_quantification.m]**. If working with cell images for which the **[no_cb#\_m.tif]** is available, the output will ignore vectors for the cell body area. If the file **[no_cb#\_m.tif]** does not exist in the input folder, the output will be computed for the original entity in full.
+Compute the average flow velocity from the interpolated PIV field with the script called **[flow_speed_quantification.m]**. If working with cell images for which the **[no_cb#\_m.tif]** is available, the output will ignore vectors for the cell body area (set to NaN as the image background). If the file **[no_cb#\_m.tif]** does not exist in the input folder, the output will be computed for the original entity in full.
 
 - input requested to the user:
   + folder containing **[cb#\_m.tif]** and PIV output (e.g. _[cell1]_)
@@ -16,7 +16,31 @@ Compute the average flow velocity from the interpolated PIV field with the scrip
   + the mean flow velocity in [um/min] for each frame in the region of interest (e.g. cell): **[flow_speed_(ouput_name).mat]** (in folder [data])
   + the mean flow velocity in [um/min] across all frames in the region of interest (e.g. cell): **[flow_speed_average_(ouput_name).mat]** (in folder [data])
 
-### Divergence analysis
+### Divergence field quantification
+
+Compute the average divergence from the interpolated PIV field with the script called **[divergence_quantification.m]**. If working with cell images for which the **[no_cb#\_m.tif]** is available, the output will ignore vectors for the cell body area (set to NaN as the image background). If the file **[no_cb#\_m.tif]** does not exist in the input folder, the output will be computed for the original entity in full.
+
+- input requested to the user:
+  + folder containing **[cb#\_m.tif]** and PIV output (e.g. _[cell1]_)
+  + name for the output stamp to be appended to all saved output files (e.g. [output_name]: cell1); need to be the same assigned when running **[happy_piv.m]**!
+  + the movie ID (# in **[cb#\_m.tif]**)
+- output:
+  + the mean divergence in [A.U.] for each frame in the region of interest (e.g. cell): **[divergence_(ouput_name).mat]** (in folder [data])
+  + the mean divergence in [A.U.] across all frames in the region of interest (e.g. cell): **[divergence_average_(ouput_name).mat]** (in folder [data])
+
+### Actin Turnover field quantification
+
+Compute the average tunrover from the interpolated PIV field with the script called **[actin_turnover_quantification.m]**. If working with cell images for which the **[no_cb#\_m.tif]** is available, the output will ignore vectors for the cell body area (set to NaN as the image background). If the file **[no_cb#\_m.tif]** does not exist in the input folder, the output will be computed for the original entity in full.
+
+- input requested to the user:
+  + folder containing **[cb#\_m.tif]** and PIV output (e.g. _[cell1]_)
+  + name for the output stamp to be appended to all saved output files (e.g. [output_name]: cell1); need to be the same assigned when running **[happy_piv.m]**!
+  + the movie ID (# in **[cb#\_m.tif]**)
+- output:
+  + the mean turnover in [A.U.] for each frame in the region of interest (e.g. cell): **[turnover_(ouput_name).mat]** (in folder [data])
+  + the mean turnover in [A.U.] across all frames in the region of interest (e.g. cell): **[turnover_average_(ouput_name).mat]** (in folder [data])
+
+### Divergence heatmap
 
 Calculate divergence heatmap with the script called **[divergence_heatmap.m]**.
 
@@ -27,7 +51,7 @@ Calculate divergence heatmap with the script called **[divergence_heatmap.m]**.
   + the maximum convergence to be displayed in the heatmap [A.U.]
 - output: this script returns the refined stack **[divergence_heatmap_(ouput_name).tif]** (in folder [images]) showing the negative divergence (convergence in arbitrary units) for each frame
 
-### Principal Strain Rate analysis
+### Principal Strain Rate heatmap
 
 Calculate principal strain rate heatmap with the script called **[principal_strain_rate_heatmap.m]**.
 
@@ -38,7 +62,7 @@ Calculate principal strain rate heatmap with the script called **[principal_stra
   + the maximum compression to be displayed in the heatmap [A.U.]
 - output: this script returns the refined stack **[principal_strain_rate_heatmap_(ouput_name).tif]** (in folder [images]) showing the negative principal strain rate (compression in arbitrary units) for each frame
 
-### Actin Turnover analysis
+### Actin Turnover heatmap
 
 Calculate actin turnover heatmap with the script called **[actin_turnover_heatmap.m]**.    
 See [here](https://www.ncbi.nlm.nih.gov/pubmed/20485438) and [here](https://www.ncbi.nlm.nih.gov/pubmed/15210979) for references.
