@@ -84,6 +84,14 @@ Calculate streamlines for the flow tracked by PIV with the script called **[stre
   + the movie ID (# in **[cb#\_m.tif]**)
 - output: this script returns the refined stacks **[streamlines_(ouput_name).tif]** and **[end_points_(ouput_name).tif]** (in folder [images]) and the file **[flow_streamlines_endpts_(output_name).mat]** (in folder [data]). The figures are not shown during the script run. The first stack shows in green the flow streamlines for each frame; the second stack shows with magenta dots the locations of streamline end points (saved in the .mat file), the dots size is proportional to the number of streamlines ending in a given location.
 
+Calculate the percentage of streamlines at the three major sinks with the script called **[percentage_streamlines_sinks.m]**.
+
+- input requested to the user:
+  + folder containing **[cb#\_m.tif]** and PIV output (e.g. _[cell1]_)
+  + name for the output stamp to be appended to all saved output files (e.g. [output_name]: cell1); need to be the same assigned when running **[happy_piv.m]**!
+  + the movie ID (# in **[cb#\_m.tif]**)
+- output: this script returns the files **[streamlines_percentage_sinks_(output_name).mat]** and **[streamlines_percentage_sinks_average_(output_name).mat]**, which contain the percentage at every time frame and the percentage averaged across time, respectively.
+
 ### Nucleus tracking
 
 Obtain coordinates of the nucleus centroid at each frame with the script **[tracking.m]**. This script can be used to track any entity, provided that a masked stack of the object is passed as input.
