@@ -37,61 +37,51 @@ for k = 1:nt
     % read movies
     im = imread(fullfile(d, im_file), k);
     im = im2double(im);
-    im_nocb = im2double(imread(fullfile(d, im_file_nocb), k));
     
-    % adjust edge 
-    bw = edge(im, 'Canny');
-
-    BW2d = imdilate(bw, strel('disk', dilationSize));
-    BW2f = imfill(BW2d, connectivityFill, 'holes');
-    BW2 = imerode(BW2f, strel('disk', erosionSize));
-   
-    [L,~] = bwlabel(BW2);
+    % if image without cell body is available
+    file_name = [d '/' im_file_nocb];
+    if exist(file_name, 'file') == 2
+        
+        im_nocb = im2double(imread(fullfile(d, im_file_nocb), k));
+        
+        % eliminate cell body data from vector field
+        field(k).vx = field(k).vx .* logical(im_nocb);
+        field(k).vy = field(k).vy .* logical(im_nocb);
+    end
     
-    stats = regionprops(L, 'Area');
-    allArea = [stats.Area];
-    area_largest_obj = max(allArea(:));
-    
-    BW2 = bwareaopen(BW2,area_largest_obj);
- 
-    % eliminate cell body data from vector field
-    field(k).vx = field(k).vx .* logical(im_nocb);
-    field(k).vy = field(k).vy .* logical(im_nocb);
-    
+    % define meshgrid 
     [x_str, y_str] = meshgrid(1:1:size(im,2), 1:1:size(im,1));
     
     % plot
     f1;
     imshow(im, []); 
     hold on
-    slc = streamslice(x_str, y_str, field(k).vx, field(k).vy,'method','cubic');
+    slc = streamslice(x_str, y_str, field(k).vx, field(k).vy, 'method', 'cubic');
     set(slc, 'Color', 'g', 'LineStyle', '-');
     drawnow
     
     % save streamline image to file
     im_stream = getframe(gcf);
-    im_stream = im_stream.cdata;
-    
-    dif_x = abs(ceil((size(im_stream,2) - size(im,2)) / 2));
-    dif_y = abs(ceil((size(im_stream,1) - size(im,1)) / 2));
-    
-    im_stream_out(1:size(im,1), 1:size(im,2), :) = ...
-        im_stream(dif_y+1:size(im,1)+dif_y, ...
-        dif_x+1:size(im,2)+dif_x, :);
+    im_stream_out = im_stream.cdata;
     
     hold off
 
-    % save streamline image to file
     imwrite(im_stream_out, fullfile(d, 'images', ...
         ['streamlines_', output_name,'.tif']), ...
         'writemode', 'append');
     
-    % define start points for streamlines (erode no_cb)
-    imbw_nocb = logical(im_nocb);
-    erode_BW2 = imerode(imbw_nocb, strel('disk', 15));
-    edge_line = edge(erode_BW2, 'Canny'); % Get cell edge line
-    [y, x] = find(edge_line); % find starting points for every streamline
-    [x_str, y_str] = meshgrid(1:size(im,2), 1:size(im,1)); % define meshgrid
+    % define start points for streamlines
+    if exist(file_name, 'file') == 2
+        imbw_nocb = logical(im_nocb);
+        erode_nocb = imerode(imbw_nocb, strel('disk', 15));
+        edge_line_nocb = edge(erode_nocb, 'Canny'); % Get cell edge line
+        [y, x] = find(edge_line_nocb); % find starting points for every streamline
+    else
+        imbw = logical(im);
+        erode_cell = imerode(imbw, strel('disk', 15));
+        edge_line = edge(erode_cell, 'Canny'); % Get cell edge line
+        [y, x] = find(edge_line);
+    end
     
     % compute streamlines (quantitative)
     S(k).stream_data = stream2(x_str, y_str, field(k).vx, field(k).vy, x, y);
@@ -119,15 +109,8 @@ for k = 1:nt
     
     % save streamline image to file
     im_stream = getframe(gcf);
-    im_stream = im_stream.cdata;
-    
-    dif_x = ceil((size(im_stream,2) - size(im,2)) / 2);
-    dif_y = ceil((size(im_stream,1) - size(im,1)) / 2);
-    
-    im_stream_out(1:size(im,1), 1:size(im,2), :) = ...
-        im_stream(dif_y+1:size(im,1)+dif_y, ...
-        dif_x+1:size(im,2)+dif_x, :);
-    
+    im_stream_out = im_stream.cdata;
+   
     % save streamline image to file
     imwrite(im_stream_out, fullfile(d, 'images', ...
         ['end_points_', output_name,'.tif']), ...
