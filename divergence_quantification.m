@@ -85,12 +85,12 @@ diverg_average = mean(diverg);
 
 %% SAVE %%
 
-% save [flow_speed]: mean flow velocity for each frame [um/min]
+% save [diverg]: mean divergence for each frame [A.U.]
 save(fullfile([d '/data'], ...
         ['divergence_', output_name, '.mat']), ...
         'diverg');
 
-% save [flow_speed_average]: mean flow velocity averaged for all frames [um/min]
+% save [diverg_average]: mean divergence averaged for all frames [A.U.]
 save(fullfile([d '/data'], ...
         ['divergence_average_', output_name, '.mat']), ...
         'diverg_average');

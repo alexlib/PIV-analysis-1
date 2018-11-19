@@ -114,12 +114,12 @@ turnover_average = mean(turnover);
 
 %% SAVE %%
 
-% save [flow_speed]: mean flow velocity for each frame [um/min]
+% save [turnover]: mean actin turnover for each frame [A.U.]
 save(fullfile([d '/data'], ...
         ['turnover_', output_name, '.mat']), ...
         'turnover');
 
-% save [flow_speed_average]: mean flow velocity averaged for all frames [um/min]
+% save [turnover_average]: mean actin turnover averaged for all frames [A.U.]
 save(fullfile([d '/data'], ...
         ['turnover_average_', output_name, '.mat']), ...
         'turnover_average');
