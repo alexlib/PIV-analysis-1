@@ -28,10 +28,6 @@ f2 = figure('Visible', 'off'); % end points
 
 %% STREAMLINES %%
 
-dilationSize = 4;
-erosionSize = 4;
-connectivityFill = 8;
-
 for k = 1:nt
     
     % read movies
