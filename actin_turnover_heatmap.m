@@ -111,6 +111,10 @@ for jj =  1:nt-1
     set(gca, 'XColor', 'none', 'yColor', 'none', 'xtick', [], 'ytick', [], 'Color', 'k')
     hold off
     
+    % white image background
+    set(gcf, 'InvertHardCopy', 'off');
+    set(gcf, 'Color', [1 1 1]);
+    
     % get current frame for save
     im_out = getframe(gcf);
     im_out = im_out.cdata;

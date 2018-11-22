@@ -92,7 +92,11 @@ for jj = 1:nt-1
     axis on;
     set(gca, 'XColor', 'none', 'yColor', 'none', 'xtick', [], 'ytick', [], 'Color', 'k') % turn transparent to black
     hold off
-
+    
+    % white image background
+    set(gcf, 'InvertHardCopy', 'off');
+    set(gcf, 'Color', [1 1 1]);
+    
     % get frame for .tif saving
     im_out = getframe(gcf);
     im_out = im_out.cdata;
