@@ -24,8 +24,6 @@ output_name = (user_answer{1,1});
 cell_ID = str2double(user_answer{2,1});
 
 % parameters
-dx = 5;
-dy = 5;
 dilationSize = 4;
 erosionSize = 12;
 connectivityFill = 4;
@@ -36,7 +34,7 @@ flow = flow.vfilt;
 
 nt = length(flow);
 
-% initialis output vector
+% initialise output vector
 diverg = zeros(nt-1, 1);
 
 %% FLOW SPEED %%
@@ -75,12 +73,12 @@ for jj = 1:nt-1
         div_mask(lim == 0) = NaN;
     end
     
-    % save mean flow velocity [um/min]
+    % save mean divergence [A.U.]
     diverg(jj,1) = nanmean(div_mask, 'all');
     
 end
 
-% average across all frames [um/min]
+% average across all frames [A.U.]
 diverg_average = mean(diverg);
 
 %% SAVE %%

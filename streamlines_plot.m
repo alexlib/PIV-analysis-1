@@ -5,12 +5,14 @@ uiwait(msgbox('Load cell movie folder'));
 d = uigetdir('');
 
 % ask the user for an ouput stamp
-prompt = {'Provide a name for the output files', 'Movie ID (n) if file format is cb_(n)_m.tif'};
+prompt = {'Provide a name for the output files', 'Movie ID (n) if file format is cb_(n)_m.tif',...
+    'Pixel length [um]'};
 title = 'Parameters';
 dims = [1 35];
 user_answer = inputdlg(prompt,title,dims);
 output_name = (user_answer{1,1});
 mt = str2double(user_answer{2,1});
+px_length = str2double(user_answer{3,1});
 
 % input names
 im_file = sprintf('cb%d_m.tif', mt);
@@ -25,6 +27,13 @@ nt = length(field); % get number of frames in .tif file
 % initialise figures (not visible)
 f1 = figure('Visible', 'off'); % streamlines
 f2 = figure('Visible', 'off'); % end points
+
+% size of box to calculate streamlines end points
+dx_um = 2.5;    % [um]
+dy_um = 2.5;    % [um]
+
+dx = ceil(dx_um/px_length); % [px]
+dy = ceil(dy_um/px_length); % [px]
 
 %% STREAMLINES %%
 
@@ -83,8 +92,6 @@ for k = 1:nt
     S(k).stream_data = stream2(x_str, y_str, field(k).vx, field(k).vy, x, y);
     
     % compute frequency of end points
-    dx = 25;
-    dy = 25;
     [stream_end_pts(k).xf, stream_end_pts(k).yf, stream_end_pts(k).f] = ...
         get_streamline_end_freq(S(k).stream_data, ...
         size(im,1), size(im,2), dx, dy);
