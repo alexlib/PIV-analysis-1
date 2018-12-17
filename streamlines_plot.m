@@ -61,7 +61,7 @@ for k = 1:nt
     f1;
     imshow(im, []); 
     hold on
-    slc = streamslice(x_str, y_str, field(k).vx, field(k).vy, 'method', 'cubic');
+    slc = streamslice(x_str, y_str, field(k).vx, field(k).vy, 6, 'method', 'cubic');
     set(slc, 'Color', 'g', 'LineStyle', '-');
     drawnow
     
