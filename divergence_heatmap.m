@@ -68,9 +68,9 @@ for jj = 1:nt-1
             dx+1:dx:size(currentFrame, 2)-dx);
         div = interp2(X0, Y0, turnover, X, Y, 'cubic');
 
-    end
+    end 
 
-    convergence = div;
+    convergence = div(1:size(currentFrame,1),1:size(currentFrame,2));
     %     norm_convergence = convergence / max(abs(div(:)));
 
     convergence = convergence .* cellOutline; % mask for cell region

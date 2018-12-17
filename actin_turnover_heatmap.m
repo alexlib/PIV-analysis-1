@@ -87,7 +87,7 @@ for jj =  1:nt-1
     end
     
     % compute values for heatmap
-    disassembly = interpolatedTurnover;
+    disassembly = interpolatedTurnover(1:size(currentFrame,1),1:size(currentFrame,2));
     disassembly = disassembly .* cellOutline; %  mask for common cell region
     
     disassembly(disassembly > 0 & cellOutline == 1) = 0;	% set positive values to 0 in the cell region

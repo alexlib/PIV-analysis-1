@@ -37,7 +37,7 @@ nt = length(flow);
 % initialise output vector
 diverg = zeros(nt-1, 1);
 
-%% FLOW SPEED %%
+%% DIVERGENCE %%
 
 for jj = 1:nt-1
     
