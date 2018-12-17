@@ -25,11 +25,13 @@ track = load (fullfile ([d '/data'], ['cell_track_', output_name, '.mat']));
 track = track.path;
 
 track = track/px_length;    % [px]
-track_diff = [diff(track(:,1)) diff(track(:,2))];
+track_smooth = [smooth(track(:,1)), smooth(track(:,2))]; % [px] smooth track with moving average to reduce noise
+
+track_diff = [diff(track_smooth(:,1)) diff(track_smooth(:,2))];
 
 % parameters
 dilationSize = 4;
-erosionSize = 10;
+erosionSize = 12;
 connectivityFill = 4;
 
 % initialise
