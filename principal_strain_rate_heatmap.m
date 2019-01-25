@@ -14,7 +14,7 @@ cell_ID = str2double(user_answer{2,1});
 max_colorscale = str2double(user_answer{3,1});
 
 % load files
-movieFilePath = [d sprintf('/cb%d_m.tif', mt)];
+movieFilePath = [d sprintf('/cb%d_m.tif', cell_ID)];
 
 flowVelocity = load(fullfile ([d '/data'], ['piv_field_interpolated_', output_name, '.mat']));
 flowVelocity = flowVelocity.vfilt;
@@ -28,7 +28,7 @@ dt = 5;
 gaussianFilterWidth = 5;
 gaussianFilterHeight = 5;
 dilationSize = 4;
-erosionSize = 10;
+erosionSize = 12;
 connectivityFill = 4;
 min_colorscale = 0;
 
@@ -115,12 +115,6 @@ for k = 1:nFrames
     cellOutline1 = detectObjectBw(currentFrame, dilationSize, erosionSize, connectivityFill);
     cellOutline2 = detectObjectBw(nextFrame, dilationSize, erosionSize, connectivityFill);
     cellOutline = cellOutline1 .* cellOutline2;
-
-    % filter intensity with a low pass gaussian filter
-    currentFrameFilt = imgaussfilt(currentFrame,...
-        'FilterSize', [gaussianFilterWidth, gaussianFilterHeight]);
-    nextFrameFilt = imgaussfilt(nextFrame, ...
-        'FilterSize', [gaussianFilterWidth, gaussianFilterHeight]);
 
     % compute values for heatmap
     vals = strainRateTensor(k).interpolatedPrincipalComponentsValues;
