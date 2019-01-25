@@ -28,9 +28,9 @@ box_x0 = 1:dx:N;
 box_y0 = 1:dy:M;
 
 % Initialize output.
-f = zeros(length(box_x0) * length(box_y0));
-x = zeros(length(box_x0) * length(box_y0));
-y = zeros(length(box_x0) * length(box_y0));
+f = zeros(length(box_x0) * length(box_y0), 1);
+x = zeros(length(box_x0) * length(box_y0), 1);
+y = zeros(length(box_x0) * length(box_y0), 1);
 
 % Find number of streamlines ending in each bounding bo x.
 k = 1;
@@ -46,12 +46,12 @@ for i = 1:length(box_y0)
         
         % Find how many streamline endpoints fall within the current
         % bounding box.
-        f(k) = length(find(diffx <= dx/2 & diffy <= dy/2));
+        f(k,1) = length(find(diffx <= dx/2 & diffy <= dy/2));
         
         % Record coordinate of the centre of the current bounding box. This
         % will be used to display streamline frequency.
-        x(k) = box_x0(j) + dx/2;
-        y(k) = box_y0(i) + dy/2;
+        x(k,1) = box_x0(j) + dx/2;
+        y(k,1) = box_y0(i) + dy/2;
         
         % Update bounding box counter
         k = k + 1;
