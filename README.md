@@ -98,14 +98,22 @@ This script requires the nucleus tracking and the PIV output.
 
 ### Flow streamline analysis
 
-Calculate streamlines for the flow tracked by PIV with the script called **[streamlines_plot.m]**.
+Calculate end points for the flow tracked by PIV with the script called **[endpts_quantification_plot.m]**.
 
 - input requested to the user:
   + folder containing **[cb#\_m.tif]** and PIV output (e.g. _[cell1]_)
   + name for the output stamp to be appended to all saved output files (e.g. [output_name]: cell1); need to be the same assigned when running **[happy_piv.m]**!
   + the movie ID (# in **[cb#\_m.tif]**)
   + the pixel length [um]
-- output: this script returns the refined stacks **[streamlines_(ouput_name).tif]** and **[end_points_(ouput_name).tif]** (in folder [images]) and the file **[flow_streamlines_endpts_(output_name).mat]** (in folder [data]). The figures are not shown during the script run. The first stack shows in green the flow streamlines for each frame; the second stack shows with magenta dots the locations of streamline end points (saved in the .mat file), the dots size is proportional to the number of streamlines ending in a given location.
+- output: this script returns the refined stack **[end_points_(ouput_name).tif]** (in folder [images]) and the file **[flow_streamlines_endpts_(output_name).mat]** (in folder [data]). The figure shows with magenta dots the locations of streamline end points (saved in the .mat file), the dots size is proportional to the number of streamlines ending in a given location. The file contains the coordinates and number of streamlines at each location.
+
+Plot streamlines for the flow tracked by PIV with the script called **[streamlines_plot.m]**.
+
+- input requested to the user:
+  + folder containing **[cb#\_m.tif]** and PIV output (e.g. _[cell1]_)
+  + name for the output stamp to be appended to all saved output files (e.g. [output_name]: cell1); need to be the same assigned when running **[happy_piv.m]**!
+  + the movie ID (# in **[cb#\_m.tif]**)
+- output: this script returns the refined stack **[streamlines_(ouput_name).tif]** (in folder [images]) showing in green the flow streamlines for each frame
 
 Calculate the percentage of streamlines at the three major sinks with the script called **[percentage_streamlines_sinks.m]**.
 
