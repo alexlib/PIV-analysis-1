@@ -3,8 +3,6 @@
 % get the file directory
 uiwait(msgbox('Load cell movie folder'));
 d = uigetdir('');
-listing = dir (fullfile (d, 'cb*.tif'));
-numFiles = length (listing);
 
 % ask the user for an ouput stamp
 prompt = {'Provide a name for the output files', 'Movie ID (n) if file format is cb_(n)_m.tif', 'Max convergence to be displayed in colourmap [A.U.]'};
@@ -63,7 +61,7 @@ for jj = 1:nt-1
 
     if dx ~= 1 || dy ~= 1
         [X0, Y0] = meshgrid(dx+1:dx:size(currentFrame,2)-dx, dy+1:dy:size(currentFrame, 1)-dy);
-        [X, Y] = meshgrid(1:size(currentFrame,2), 1:size(currentFrame,2));
+        [X, Y] = meshgrid(1:size(currentFrame,2), 1:size(currentFrame,1));
         turnover = div(dy+1:dy:size(currentFrame, 1)-dy, ...
             dx+1:dx:size(currentFrame, 2)-dx);
         div = interp2(X0, Y0, turnover, X, Y, 'cubic');
