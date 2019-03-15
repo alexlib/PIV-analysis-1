@@ -47,7 +47,7 @@ for k = 1:nt
         im_nocb = im2double(imread(fullfile(d, im_file_nocb), k));
         % define start points for streamlines
         imbw_nocb = logical(im_nocb);
-        erode_nocb = imerode(imbw_nocb, strel('disk', 12));
+        erode_nocb = imerode(imbw_nocb, strel('disk', 15));
         edge_line_nocb = edge(erode_nocb, 'Canny'); % get cell edge line
         [y, x] = find(edge_line_nocb); % find starting points for every streamline
         % eliminate cell body data from vector field
@@ -56,7 +56,7 @@ for k = 1:nt
     else
         % define start points for streamlines
         imbw = logical(im);
-        erode_cell = imerode(imbw, strel('disk', 12));
+        erode_cell = imerode(imbw, strel('disk', 15));
         edge_line = edge(erode_cell, 'Canny'); % get cell edge line
         [y, x] = find(edge_line);
     end
