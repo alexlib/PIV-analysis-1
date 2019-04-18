@@ -24,9 +24,9 @@ nFrames = length(flowVelocity);
 % parameters
 dx = 5; % width of the box used to compute the strain rate tensor
 dy = 5; % height of the box used to compute the strain rate tensor
-dt = 5;
-gaussianFilterWidth = 5;
-gaussianFilterHeight = 5;
+% dx = 25; % monolayer
+% dy = 25;
+
 dilationSize = 4;
 erosionSize = 12;
 connectivityFill = 4;
@@ -114,6 +114,13 @@ for k = 1:nFrames
     % detect cell outline and common region between frames
     cellOutline1 = detectObjectBw(currentFrame, dilationSize, erosionSize, connectivityFill);
     cellOutline2 = detectObjectBw(nextFrame, dilationSize, erosionSize, connectivityFill);
+
+%     % no edge option
+%     cellOutline1 = logical(currentFrame);
+%     cellOutline1 = imfill(cellOutline1, 'holes');
+%     cellOutline2 = logical(nextFrame);
+%     cellOutline2 = imfill(cellOutline2, 'holes');
+    
     cellOutline = cellOutline1 .* cellOutline2;
 
     % compute values for heatmap

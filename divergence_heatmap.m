@@ -14,8 +14,10 @@ cell_ID = str2double(user_answer{2,1});
 max_colorscale = str2double(user_answer{3,1});
 
 % parameters
-dx = 5;
+dx = 5;   % heamocytes
 dy = 5;
+% dx = 10;   % RPE
+% dy = 10;
 dilationSize = 4;
 erosionSize = 12;
 connectivityFill = 4;
