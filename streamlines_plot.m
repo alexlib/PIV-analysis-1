@@ -22,6 +22,7 @@ names = fieldnames(field);
 field = field.(names{1});
 nt = length(field); % get number of frames in .tif file
 
+iptsetpref('ImshowBorder','tight');
 %% STREAMLINES %%
 
 for k = 1:nt
@@ -48,7 +49,7 @@ for k = 1:nt
     imshow(im, []); 
     hold on
     slc = streamslice(x_str, y_str, field(k).vx, field(k).vy, 6, 'method', 'cubic');
-    set(slc, 'Color', 'g', 'LineStyle', '-');
+    set(slc, 'Color', 'g', 'LineStyle', '-', 'LineWidth', 1);
     
     % white image background
     set(gcf, 'InvertHardCopy', 'off');
@@ -68,3 +69,4 @@ end
 
 close all
 clear
+iptsetpref('ImshowBorder','loose');
