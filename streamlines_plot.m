@@ -48,7 +48,7 @@ for k = 1:nt
     % plot
     imshow(im, []); 
     hold on
-    slc = streamslice(x_str, y_str, field(k).vx, field(k).vy, 6, 'method', 'cubic');
+    slc = streamslice(x_str, y_str, field(k).vx, field(k).vy, 'method', 'cubic');
     set(slc, 'Color', 'g', 'LineStyle', '-', 'LineWidth', 1);
     
     % white image background

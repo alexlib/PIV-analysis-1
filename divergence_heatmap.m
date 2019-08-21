@@ -23,7 +23,7 @@ erosionSize = 12;
 connectivityFill = 4;
 min_colorscale = 0;
 
-% load interpolated filed
+% load interpolated file
 flow = load (fullfile ([d '/data'], ['piv_field_interpolated_', output_name, '.mat']));
 flow = flow.vfilt;
 
@@ -82,9 +82,9 @@ for jj = 1:nt-1
     h = imshow(convergence, []);
     colormap('jet');
     caxis([min_colorscale, max_colorscale])
-    c = colorbar;
-    c.Label.FontSize = 14;
-    c.Label.String = 'Convergence (A.U.)';
+%     c = colorbar;
+%     c.Label.FontSize = 14;
+%     c.Label.String = 'Convergence (A.U.)';
     hold on
 
     % black background
